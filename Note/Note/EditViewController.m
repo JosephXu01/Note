@@ -8,17 +8,19 @@
 
 #import "EditViewController.h"
 #import "NoteService.h"
+#import "MoreActionTableViewController.h"
+#import "ReadingModeViewController.h"
 
 @interface EditViewController ()
 @property (weak, nonatomic) IBOutlet UITextField *titleText;
 @property (weak, nonatomic) IBOutlet UITextView *bodyText;
-@property (weak, nonatomic) IBOutlet UITabBar *tabBar;
 
 @property (strong,nonatomic) NoteService *noteService;
 
 @end
 
 @implementation EditViewController
+@synthesize popoverController;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -28,6 +30,7 @@
         self.titleText.text = self.currentNote.title;
         self.bodyText.text = self.currentNote.body;
     }
+
 
 //      self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStylePlain target:self action:@selector(backToNoteList:)];
 
@@ -59,6 +62,26 @@
     self.titleText.text = self.currentNote.title;
     self.bodyText.text = self.currentNote.body;
 }
+- (IBAction)readingModeClicked:(UIBarButtonItem *)sender {
+    ReadingModeViewController *readingModeViewController = [[ReadingModeViewController alloc] init];
+
+    readingModeViewController.currentNode = self.currentNote;
+
+    [self presentViewController:readingModeViewController animated:YES completion:nil];
+    
+}
+
+- (IBAction)moreButtonClicked:(UIBarButtonItem *)sender {
+    MoreActionTableViewController *moreActionViewController = [[MoreActionTableViewController alloc] init];
+
+    self.popoverController = [[WEPopoverController alloc] initWithContentViewController:moreActionViewController];
+
+    self.popoverController.delegate = self;
+    self.popoverController.popoverContentSize = moreActionViewController.preferredContentSize;
+
+    [self.popoverController presentPopoverFromBarButtonItem:sender permittedArrowDirections:UIPopoverArrowDirectionDown animated:YES];
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

@@ -183,7 +183,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" maximumZoomScale="2" translatesAutoresizingMaskIntoConstraints="NO" id="oQe-vP-Aqx">
-                                <rect key="frame" x="0.0" y="95" width="600" height="456"/>
+                                <rect key="frame" x="0.0" y="95" width="600" height="461"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="477" id="iTz-JC-X70"/>
@@ -220,19 +220,28 @@
                                     <constraint firstAttribute="height" constant="1" id="hhH-3w-ZCx"/>
                                 </constraints>
                             </view>
-                            <tabBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iL2-8Z-btd">
-                                <rect key="frame" x="0.0" y="551" width="600" height="49"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aPY-Gw-tRU">
+                                <rect key="frame" x="0.0" y="556" width="600" height="44"/>
                                 <items>
-                                    <tabBarItem title="Share" id="lKr-fy-PVJ"/>
-                                    <tabBarItem title="Item" id="hx6-aH-8JD"/>
-                                    <tabBarItem systemItem="more" id="5C9-7c-oCq"/>
+                                    <barButtonItem title="Share" id="eBD-zC-lVe"/>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="p7I-gs-6Oz"/>
+                                    <barButtonItem title="Reading Mode" id="CUV-AC-Z29">
+                                        <connections>
+                                            <action selector="readingModeClicked:" destination="xBQ-xl-sE6" id="exe-8I-Myg"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="z2D-SA-eGC"/>
+                                    <barButtonItem title="More" id="dFc-Op-Dhq">
+                                        <connections>
+                                            <action selector="moreButtonClicked:" destination="xBQ-xl-sE6" id="6gt-CK-k7R"/>
+                                        </connections>
+                                    </barButtonItem>
                                 </items>
-                            </tabBar>
+                            </toolbar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="oQe-vP-Aqx" firstAttribute="leading" secondItem="iL2-8Z-btd" secondAttribute="leading" id="9h7-WR-JBj"/>
+                            <constraint firstItem="aPY-Gw-tRU" firstAttribute="bottom" secondItem="uSc-nE-uKN" secondAttribute="top" id="0pZ-r2-bhi"/>
                             <constraint firstItem="oQe-vP-Aqx" firstAttribute="leading" secondItem="phK-QJ-wIJ" secondAttribute="leading" id="B2k-cV-bmL"/>
                             <constraint firstItem="6xX-FF-SLV" firstAttribute="trailing" secondItem="oAz-yL-nEF" secondAttribute="trailing" id="Lfa-yC-P9A"/>
                             <constraint firstItem="oQe-vP-Aqx" firstAttribute="top" secondItem="6xX-FF-SLV" secondAttribute="bottom" id="LhG-0L-YCx"/>
@@ -242,9 +251,9 @@
                             <constraint firstItem="6xX-FF-SLV" firstAttribute="top" secondItem="oAz-yL-nEF" secondAttribute="bottom" id="fBp-8m-UsQ"/>
                             <constraint firstItem="oQe-vP-Aqx" firstAttribute="leading" secondItem="6xX-FF-SLV" secondAttribute="leading" id="fJX-Vi-4u7"/>
                             <constraint firstItem="oAz-yL-nEF" firstAttribute="top" secondItem="t5N-1b-Bp3" secondAttribute="bottom" id="gzx-1X-Tm5"/>
-                            <constraint firstItem="oQe-vP-Aqx" firstAttribute="bottom" secondItem="iL2-8Z-btd" secondAttribute="top" id="jbb-dp-BYe"/>
-                            <constraint firstItem="oQe-vP-Aqx" firstAttribute="trailing" secondItem="iL2-8Z-btd" secondAttribute="trailing" id="nsZ-Tx-O03"/>
-                            <constraint firstItem="iL2-8Z-btd" firstAttribute="bottom" secondItem="uSc-nE-uKN" secondAttribute="top" id="tAE-hi-uel"/>
+                            <constraint firstItem="aPY-Gw-tRU" firstAttribute="trailing" secondItem="oQe-vP-Aqx" secondAttribute="trailing" id="i3H-FA-O1H"/>
+                            <constraint firstItem="aPY-Gw-tRU" firstAttribute="leading" secondItem="oQe-vP-Aqx" secondAttribute="leading" id="ko4-iS-fvg"/>
+                            <constraint firstItem="aPY-Gw-tRU" firstAttribute="top" secondItem="oQe-vP-Aqx" secondAttribute="bottom" id="vr1-LN-nVk"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="PUM-qh-TAr">
@@ -256,7 +265,6 @@
                     </navigationItem>
                     <connections>
                         <outlet property="bodyText" destination="oQe-vP-Aqx" id="7Yc-uU-2TF"/>
-                        <outlet property="tabBar" destination="iL2-8Z-btd" id="QVx-Dv-a8p"/>
                         <outlet property="titleText" destination="oAz-yL-nEF" id="2Lu-Oh-vPP"/>
                     </connections>
                 </viewController>
