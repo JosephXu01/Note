@@ -8,12 +8,14 @@
 
 #import <UIKit/UIKit.h>
 #import "Note.h"
+#import "WEPopoverController.h"
 
 #define NOTEUPDATEDNOTIFICATION @"NoteUpdatedNotification"
 #define UPDATEDNOTE @"updatedNote"
 
-@interface EditViewController : UIViewController 
+@interface EditViewController : UIViewController <WEPopoverControllerDelegate>
 
 @property (strong,nonatomic) Note *currentNote;
+@property (strong,nonatomic) WEPopoverController *popoverController;
 
 @end
