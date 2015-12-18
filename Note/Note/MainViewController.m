@@ -11,6 +11,7 @@
 #import "Note.h"
 #import "EditViewController.h"
 #import "MoreActionTableViewController.h"
+#import "AttributedBody.h"
 
 #define ADD @"add"
 #define EDIT @"edit"
@@ -226,10 +227,22 @@
 -(void)updateSearchResultsForSearchController:(UISearchController *)searchController{
     [self.searchResultsArray removeAllObjects];
 
-    NSString *searchText = searchController.searchBar.text;
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF.title CONTAINS[C] %@ OR SELF.body CONTAINS[C] %@ ",searchText,searchText];
+    NSString *searchText = searchController.searchBar.text.lowercaseString;
 
-    self.searchResultsArray = [[self.noteArray filteredArrayUsingPredicate:predicate] mutableCopy];
+    [self.noteArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        Note *note = (Note *)obj;
+        if ([note.title.lowercaseString containsString:searchText]) {
+
+            [self.searchResultsArray addObject:note];
+        }else if (note.body) {
+            AttributedBody *body = [NSKeyedUnarchiver unarchiveObjectWithData:note.body];
+
+            if ([body.body.string.lowercaseString containsString:searchText]) {
+                [self.searchResultsArray addObject:note];
+            }
+
+        }
+    }];
 
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.noteListTableView reloadData];
