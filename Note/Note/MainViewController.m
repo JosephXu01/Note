@@ -86,8 +86,16 @@
         note = self.noteArray[indexPath.row];
     }
 
+    NSString *preBody = @"";
+    if (note.body) {
+        AttributedBody *body = [NSKeyedUnarchiver unarchiveObjectWithData:note.body];
+        NSString *s = body.body.string;
+
+        preBody = [s substringToIndex:s.length > 100? 100:s.length];
+    }
+
     cell.textLabel.text = note.title;
-    cell.detailTextLabel.text = [self formatDate:note.lastModifiedDate];
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@  %@",[self formatDate:note.lastModifiedDate],preBody];
 
     return cell;
 }
