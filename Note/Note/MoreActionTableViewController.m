@@ -7,7 +7,7 @@
 //
 
 #import "MoreActionTableViewController.h"
-
+#define DELETE @"Delete"
 @interface MoreActionTableViewController ()
 
 @property (strong,nonatomic) NSArray *actionsArray;
@@ -18,15 +18,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 
-
-    self.actionsArray = @[@"Hello",@"Delete"];
+    self.actionsArray = @[DELETE];
 
     self.preferredContentSize = CGSizeMake(100, 44 * self.actionsArray.count - 1);
 
@@ -60,23 +53,12 @@
     UITableViewCell *selectedCell = [tableView cellForRowAtIndexPath:indexPath];
     NSString *label = selectedCell.textLabel.text;
 
-    if([label isEqualToString:@"Delete"]) {
-
-        NSLog(@"delete........................");
+    if([label isEqualToString:DELETE]) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:NOTE_DELETED_FROM_EDIT_PAGE object:self userInfo:@{NOTE_TO_DELETE : self.currentNote}];
+        
+        [self.editViewController.popoverController dismissPopoverAnimated:YES];
+        [self.editViewController.navigationController popViewControllerAnimated:YES];
     }
-
-
 }
-
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

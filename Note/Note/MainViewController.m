@@ -10,6 +10,10 @@
 #import "NoteService.h"
 #import "Note.h"
 #import "EditViewController.h"
+#import "MoreActionTableViewController.h"
+
+#define ADD @"add"
+#define EDIT @"edit"
 
 @interface MainViewController ()
 @property (weak, nonatomic) IBOutlet UITableView *noteListTableView;
@@ -142,7 +146,7 @@
         [self dismissViewControllerAnimated:self.searchController completion:NULL];
     }
 
-    [self performSegueWithIdentifier:@"edit" sender:[self.noteListTableView cellForRowAtIndexPath:indexPath]];
+    [self performSegueWithIdentifier:EDIT sender:[self.noteListTableView cellForRowAtIndexPath:indexPath]];
 }
 
 #pragma mark - prepareforsegue
@@ -150,7 +154,7 @@
     if ([segue.destinationViewController isKindOfClass:[EditViewController class]]) {
         EditViewController *editViewController = segue.destinationViewController;
 
-        if ([segue.identifier isEqualToString:@"add"]) {
+        if ([segue.identifier isEqualToString:ADD]) {
             Note *newNote = [_noteService newNote];
             editViewController.currentNote = newNote;
 
@@ -158,17 +162,19 @@
             [self.noteArray insertObject:newNote atIndex:0];
             [self.noteListTableView insertRowsAtIndexPaths:@[[self firstRow]] withRowAnimation:NO];
 
-        }else if([segue.identifier isEqualToString:@"edit"]){
+        }else if([segue.identifier isEqualToString:EDIT]){
             NSIndexPath *indexPath = [self.noteListTableView indexPathForCell:(UITableViewCell *)sender];
             Note *selectedNote = self.noteArray[indexPath.row];
             editViewController.currentNote = selectedNote;
         }
 
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(noteUpdated:) name:NOTEUPDATEDNOTIFICATION object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(noteUpdated:) name:NOTE_UPDATED_NOTIFICATION object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deleteNoteFromEditPage:) name:NOTE_DELETED_FROM_EDIT_PAGE object:nil];
     }
 
 }
 
+#pragma mark - notification
 //when note updated , move it to the first row
 -(void)noteUpdated:(NSNotification *)notification{
     Note *updatedNote = [notification.userInfo valueForKey:UPDATEDNOTE];
@@ -185,7 +191,24 @@
         [self.noteListTableView reloadRowsAtIndexPaths:@[[self firstRow]] withRowAnimation:NO];
     }
 
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:NOTEUPDATEDNOTIFICATION object:notification.object];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:NOTE_UPDATED_NOTIFICATION object:notification.object];
+}
+
+//note delet from edit page
+-(void)deleteNoteFromEditPage:(NSNotification *)notification{
+    Note *noteToDelete = [notification.userInfo valueForKey:NOTE_TO_DELETE];
+    NSUInteger index = [self.noteArray indexOfObject:noteToDelete];
+
+    //TODO:bug here, don't know why yet, this method will be executed serverl times,
+    //the first time ,note will be deleted, then the index will be -1,
+    if (index != NSNotFound) {
+        [_noteService deleteNote:noteToDelete];
+        [self.noteArray removeObject:noteToDelete];
+        [self.noteListTableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForItem:index inSection:0]] withRowAnimation:UITableViewRowAnimationLeft];
+
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:NOTE_DELETED_FROM_EDIT_PAGE object:notification.object];
+    }
+
 }
 
 -(NSIndexPath *)firstRow{
