@@ -10,12 +10,14 @@
 #import "NoteService.h"
 #import "MoreActionTableViewController.h"
 #import "ReadingModeViewController.h"
+#import "AttributedBody.h"
 
 @interface EditViewController ()
 @property (weak, nonatomic) IBOutlet UITextField *titleText;
 @property (weak, nonatomic) IBOutlet UITextView *bodyText;
 
 @property (strong,nonatomic) NoteService *noteService;
+@property (strong,nonatomic) AttributedBody *attributedBody;
 
 @end
 
@@ -26,11 +28,15 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 
-    if (self.currentNote) {
-        self.titleText.text = self.currentNote.title;
-        self.bodyText.text = self.currentNote.body;
+
+    self.titleText.text = self.currentNote.title;
+
+        //unarchive
+    if (_currentNote.body) {
+        self.attributedBody = [NSKeyedUnarchiver unarchiveObjectWithData:_currentNote.body];
     }
 
+    self.bodyText.attributedText = _attributedBody.body;
 
 //      self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStylePlain target:self action:@selector(backToNoteList:)];
 
@@ -40,17 +46,21 @@
     }
 }
 - (IBAction)saveNote:(UIBarButtonItem *)sender {
-    [self.bodyText.textStorage addAttribute:NSForegroundColorAttributeName value:[UIColor yellowColor] range:NSMakeRange(0, self.bodyText.text.length)];
+    AttributedBody *attributedBody = [[AttributedBody alloc] init];
+    attributedBody.body =  self.bodyText.attributedText;
+
+    //archive
+    NSData *bodyData = [NSKeyedArchiver archivedDataWithRootObject:attributedBody];
 
     _currentNote.title = self.titleText.text;
-    _currentNote.body = self.bodyText.attributedText.string;
+    _currentNote.body = bodyData;
     _currentNote.lastModifiedDate = [NSDate date];
 
     [self.noteService updateNote];
 
     [self.view endEditing:YES];
 
-    [[NSNotificationCenter defaultCenter] postNotificationName:NOTEUPDATEDNOTIFICATION object:self userInfo:@{UPDATEDNOTE : _currentNote}];
+    [[NSNotificationCenter defaultCenter] postNotificationName:NOTE_UPDATED_NOTIFICATION object:self userInfo:@{UPDATEDNOTE : _currentNote}];
 }
 
 //-(void)backToNoteList:(UIBarButtonItem *)sender {
@@ -59,13 +69,12 @@
 //}
 
 -(void)viewWillAppear:(BOOL)animated{
-    self.titleText.text = self.currentNote.title;
-    self.bodyText.text = self.currentNote.body;
+
 }
 - (IBAction)readingModeClicked:(UIBarButtonItem *)sender {
     ReadingModeViewController *readingModeViewController = [[ReadingModeViewController alloc] init];
 
-    readingModeViewController.currentNode = self.currentNote;
+    readingModeViewController.attributedString = [self.attributedBody.body mutableCopy];
 
     [self presentViewController:readingModeViewController animated:YES completion:nil];
     
@@ -73,6 +82,8 @@
 
 - (IBAction)moreButtonClicked:(UIBarButtonItem *)sender {
     MoreActionTableViewController *moreActionViewController = [[MoreActionTableViewController alloc] init];
+    moreActionViewController.editViewController = self;
+    moreActionViewController.currentNote = self.currentNote;
 
     self.popoverController = [[WEPopoverController alloc] initWithContentViewController:moreActionViewController];
 
@@ -93,6 +104,13 @@
         _noteService = [[NoteService alloc] init];
     }
     return _noteService;
+}
+
+-(AttributedBody *)attributedBody{
+    if (!_attributedBody) {
+        _attributedBody = [[AttributedBody alloc] init];
+    }
+    return _attributedBody;
 }
 /*
 #pragma mark - Navigation

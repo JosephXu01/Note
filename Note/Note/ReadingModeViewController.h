@@ -7,10 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "WEPopoverController.h"
 @class Note;
 
-@interface ReadingModeViewController : UIViewController
+@interface ReadingModeViewController : UIViewController <WEPopoverControllerDelegate>
 
-@property (strong,nonatomic) Note *currentNode;
+@property (strong,nonatomic) NSMutableAttributedString *attributedString;
+
+@property (strong,nonatomic) WEPopoverController *popoverController;
+
+@property (strong,nonatomic) UIColor *backgroundColor;
+@property (strong,nonatomic) UIColor *textColor;
+
 
 @end

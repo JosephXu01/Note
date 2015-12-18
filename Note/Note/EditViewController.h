@@ -10,7 +10,7 @@
 #import "Note.h"
 #import "WEPopoverController.h"
 
-#define NOTEUPDATEDNOTIFICATION @"NoteUpdatedNotification"
+#define NOTE_UPDATED_NOTIFICATION @"NoteUpdatedNotification"
 #define UPDATEDNOTE @"updatedNote"
 
 @interface EditViewController : UIViewController <WEPopoverControllerDelegate>
