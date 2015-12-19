@@ -256,6 +256,21 @@
                                     <action selector="returnToLogInPage:" destination="DOf-dE-5PB" eventType="touchUpInside" id="2SR-OV-fvA"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Congratulations!" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0nw-C4-MMr">
+                                <rect key="frame" x="237" y="542" width="127" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="forwarding to log in page..." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qqr-Fa-yhf">
+                                <rect key="frame" x="208" y="571" width="184" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="cNA-Ec-Gcz"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -267,6 +282,7 @@
                             <constraint firstItem="eOi-G6-5t0" firstAttribute="leading" secondItem="Rpy-lk-glu" secondAttribute="leading" id="HDo-SV-xtp"/>
                             <constraint firstItem="mIg-BX-Cef" firstAttribute="top" secondItem="eOi-G6-5t0" secondAttribute="bottom" constant="305" id="Idk-Zl-hZD"/>
                             <constraint firstItem="HI5-E6-mYd" firstAttribute="centerX" secondItem="xP7-kJ-pn5" secondAttribute="centerX" id="Rvh-Gt-6Y2"/>
+                            <constraint firstItem="0nw-C4-MMr" firstAttribute="centerX" secondItem="Qqr-Fa-yhf" secondAttribute="centerX" id="Vtc-Cf-c1G"/>
                             <constraint firstItem="fW6-aZ-Twy" firstAttribute="top" secondItem="eOi-G6-5t0" secondAttribute="bottom" constant="8" symbolic="YES" id="WRt-Lr-A8H"/>
                             <constraint firstItem="mIg-BX-Cef" firstAttribute="top" secondItem="fW6-aZ-Twy" secondAttribute="bottom" constant="308" id="Zeo-rr-cga"/>
                             <constraint firstItem="xP7-kJ-pn5" firstAttribute="leading" secondItem="4io-jZ-MvZ" secondAttribute="leading" id="alC-Nc-jlA"/>
@@ -274,10 +290,13 @@
                             <constraint firstItem="0m4-Rn-K9P" firstAttribute="top" secondItem="4io-jZ-MvZ" secondAttribute="bottom" constant="8" symbolic="YES" id="g2Z-IB-sTv"/>
                             <constraint firstItem="4io-jZ-MvZ" firstAttribute="trailing" secondItem="0m4-Rn-K9P" secondAttribute="trailing" id="iTJ-Wk-nLH"/>
                             <constraint firstItem="0m4-Rn-K9P" firstAttribute="leading" secondItem="4io-jZ-MvZ" secondAttribute="leading" id="kOz-DQ-qYy"/>
+                            <constraint firstItem="mIg-BX-Cef" firstAttribute="top" secondItem="Qqr-Fa-yhf" secondAttribute="bottom" constant="8" symbolic="YES" id="kjX-Qw-50l"/>
                             <constraint firstItem="mIg-BX-Cef" firstAttribute="top" secondItem="Rpy-lk-glu" secondAttribute="bottom" constant="276" id="nuR-q1-YQv"/>
+                            <constraint firstItem="Qqr-Fa-yhf" firstAttribute="top" secondItem="0nw-C4-MMr" secondAttribute="bottom" constant="8" symbolic="YES" id="ooW-lx-UAF"/>
                             <constraint firstItem="eOi-G6-5t0" firstAttribute="centerX" secondItem="0m4-Rn-K9P" secondAttribute="centerX" id="p1U-RA-4Bd"/>
                             <constraint firstItem="xP7-kJ-pn5" firstAttribute="top" secondItem="HI5-E6-mYd" secondAttribute="bottom" constant="31" id="qC9-B6-O7y"/>
                             <constraint firstItem="fW6-aZ-Twy" firstAttribute="leading" secondItem="Rpy-lk-glu" secondAttribute="trailing" constant="8" symbolic="YES" id="suJ-iV-Tul"/>
+                            <constraint firstItem="0nw-C4-MMr" firstAttribute="centerX" secondItem="eOi-G6-5t0" secondAttribute="centerX" id="tyb-dD-ZLb"/>
                             <constraint firstItem="HI5-E6-mYd" firstAttribute="leading" secondItem="JLf-Vf-X5y" secondAttribute="leading" id="ueI-rP-oR4"/>
                             <constraint firstItem="eOi-G6-5t0" firstAttribute="top" secondItem="0m4-Rn-K9P" secondAttribute="bottom" constant="20" id="vHd-69-rxP"/>
                             <constraint firstItem="4io-jZ-MvZ" firstAttribute="leading" secondItem="JLf-Vf-X5y" secondAttribute="leadingMargin" id="x5E-sx-DvG"/>
@@ -296,6 +315,8 @@
                         <outlet property="accountText" destination="4io-jZ-MvZ" id="LDj-o5-Mfh"/>
                         <outlet property="nickNameText" destination="xP7-kJ-pn5" id="WEO-tI-b3d"/>
                         <outlet property="passwordText" destination="0m4-Rn-K9P" id="T8X-o8-Fq7"/>
+                        <outlet property="successLable1" destination="0nw-C4-MMr" id="4gi-uj-HDw"/>
+                        <outlet property="successLable2" destination="Qqr-Fa-yhf" id="lGJ-sW-yHs"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MEP-9e-YGC" userLabel="First Responder" sceneMemberID="firstResponder"/>

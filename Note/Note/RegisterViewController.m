@@ -15,6 +15,8 @@
 @property (weak, nonatomic) IBOutlet UITextField *nickNameText;
 @property (weak, nonatomic) IBOutlet UITextField *accountText;
 @property (weak, nonatomic) IBOutlet UITextField *passwordText;
+@property (weak, nonatomic) IBOutlet UILabel *successLable1;
+@property (weak, nonatomic) IBOutlet UILabel *successLable2;
 
 @property (strong,nonatomic) UserService *userService;
 
@@ -29,6 +31,9 @@
     self.nickNameText.delegate = self;
     self.accountText.delegate = self;
     self.passwordText.delegate = self;
+
+    [self.successLable1 setHidden:YES];
+    [self.successLable2 setHidden:YES];
 
     [self initPasswordSwitch];
 }
@@ -67,14 +72,23 @@
         //add user
         [self.userService newUserWithRegisterInfo:registerInfo];
 
-        //return to login page
-        [self dismissViewControllerAnimated:YES completion:nil];
+        //show success info
+        [self.successLable1 setHidden:NO];
+        [self.successLable2 setHidden:NO];
 
-    }
+        NSTimer *delayTimer = [NSTimer timerWithTimeInterval:1.5 target:self selector:@selector(  redirectToLogInPage) userInfo:nil repeats:NO];
+
+        [[NSRunLoop currentRunLoop] addTimer:delayTimer forMode:NSDefaultRunLoopMode];
+        }
 }
-- (IBAction)returnToLogInPage:(UIButton *)sender {
+
+-(void)redirectToLogInPage{
     //return to login page
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (IBAction)returnToLogInPage:(UIButton *)sender {
+    [self redirectToLogInPage];
 }
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField{
