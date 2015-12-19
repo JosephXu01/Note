@@ -31,7 +31,6 @@
 		FEB5FD081C1FFFE6006011AC /* TextFieldTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FEB5FD071C1FFFE6006011AC /* TextFieldTableViewCell.m */; };
 		FEB5FD0B1C2005F1006011AC /* LoginPasswordTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FEB5FD0A1C2005F1006011AC /* LoginPasswordTableViewController.m */; };
 		FEB5FD0E1C202EC5006011AC /* ReadingPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FEB5FD0D1C202EC5006011AC /* ReadingPasswordViewController.m */; };
-		FEB5FD111C212AFD006011AC /* Lock.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FEB5FD101C212AFD006011AC /* Lock.storyboard */; };
 		FEF08A541C214F17000F9DCC /* LocalAuthentication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FEF08A531C214F17000F9DCC /* LocalAuthentication.framework */; };
 		FEF08A561C216967000F9DCC /* camera.png in Resources */ = {isa = PBXBuildFile; fileRef = FEF08A551C216967000F9DCC /* camera.png */; };
 		FEF08AAA1C2197D2000F9DCC /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FEF08AA91C2197D2000F9DCC /* Login.storyboard */; };
@@ -71,6 +70,7 @@
 		FEF08B6E1C22D9BA000F9DCC /* ReadingModeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FEF08B6D1C22D9BA000F9DCC /* ReadingModeViewController.m */; };
 		FEF08BE41C23A7F2000F9DCC /* BackoundColorTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FEF08BE31C23A7F2000F9DCC /* BackoundColorTableViewController.m */; };
 		FEF08BE71C23B7E6000F9DCC /* AttributedBody.m in Sources */ = {isa = PBXBuildFile; fileRef = FEF08BE61C23B7E6000F9DCC /* AttributedBody.m */; };
+		FEF08C5A1C258826000F9DCC /* ReadingPasswordInputViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FEF08C591C258826000F9DCC /* ReadingPasswordInputViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -129,7 +129,6 @@
 		FEB5FD0A1C2005F1006011AC /* LoginPasswordTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginPasswordTableViewController.m; sourceTree = "<group>"; };
 		FEB5FD0C1C202EC5006011AC /* ReadingPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReadingPasswordViewController.h; sourceTree = "<group>"; };
 		FEB5FD0D1C202EC5006011AC /* ReadingPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReadingPasswordViewController.m; sourceTree = "<group>"; };
-		FEB5FD101C212AFD006011AC /* Lock.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Lock.storyboard; sourceTree = "<group>"; };
 		FEF08A531C214F17000F9DCC /* LocalAuthentication.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LocalAuthentication.framework; path = System/Library/Frameworks/LocalAuthentication.framework; sourceTree = SDKROOT; };
 		FEF08A551C216967000F9DCC /* camera.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = camera.png; sourceTree = "<group>"; };
 		FEF08AA91C2197D2000F9DCC /* Login.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
@@ -183,6 +182,8 @@
 		FEF08BE31C23A7F2000F9DCC /* BackoundColorTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BackoundColorTableViewController.m; sourceTree = "<group>"; };
 		FEF08BE51C23B7E6000F9DCC /* AttributedBody.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AttributedBody.h; sourceTree = "<group>"; };
 		FEF08BE61C23B7E6000F9DCC /* AttributedBody.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AttributedBody.m; sourceTree = "<group>"; };
+		FEF08C581C258826000F9DCC /* ReadingPasswordInputViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReadingPasswordInputViewController.h; sourceTree = "<group>"; };
+		FEF08C591C258826000F9DCC /* ReadingPasswordInputViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReadingPasswordInputViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -236,7 +237,6 @@
 				FE96376E1C1D0F8100A98564 /* AppDelegate.m */,
 				FE9637761C1D0F8100A98564 /* Main.storyboard */,
 				FEF08AA91C2197D2000F9DCC /* Login.storyboard */,
-				FEB5FD101C212AFD006011AC /* Lock.storyboard */,
 				FE96379C1C1D103400A98564 /* Note.xcdatamodeld */,
 				FEB5FD0F1C210112006011AC /* View */,
 				FEB5FCFF1C1FDE55006011AC /* Util */,
@@ -320,6 +320,8 @@
 				FEB5FD0A1C2005F1006011AC /* LoginPasswordTableViewController.m */,
 				FEB5FD0C1C202EC5006011AC /* ReadingPasswordViewController.h */,
 				FEB5FD0D1C202EC5006011AC /* ReadingPasswordViewController.m */,
+				FEF08C581C258826000F9DCC /* ReadingPasswordInputViewController.h */,
+				FEF08C591C258826000F9DCC /* ReadingPasswordInputViewController.m */,
 				FEF08AB11C2279CB000F9DCC /* HelpViewController.h */,
 				FEF08AB21C2279CB000F9DCC /* HelpViewController.m */,
 				FEF08B691C22C383000F9DCC /* MoreActionTableViewController.h */,
@@ -504,7 +506,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FEB5FD111C212AFD006011AC /* Lock.storyboard in Resources */,
 				FEB5FCFE1C1FC08D006011AC /* Settings.plist in Resources */,
 				FEF08AAA1C2197D2000F9DCC /* Login.storyboard in Resources */,
 				FEF08AF51C22B097000F9DCC /* popoverArrowDown@2x.png in Resources */,
@@ -560,6 +561,7 @@
 				FE9637A81C1D103400A98564 /* Note.xcdatamodeld in Sources */,
 				FE9637A61C1D103400A98564 /* MainViewController.m in Sources */,
 				FEF08B6E1C22D9BA000F9DCC /* ReadingModeViewController.m in Sources */,
+				FEF08C5A1C258826000F9DCC /* ReadingPasswordInputViewController.m in Sources */,
 				FEB5FD0B1C2005F1006011AC /* LoginPasswordTableViewController.m in Sources */,
 				FEB5FD0E1C202EC5006011AC /* ReadingPasswordViewController.m in Sources */,
 				FEF08AB01C219819000F9DCC /* User.m in Sources */,

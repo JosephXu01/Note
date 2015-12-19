@@ -56,6 +56,7 @@
 
     [_toolbar setItems:[self getBarButtonItems]];
 
+    _textView.editable = NO;
     [self.view addSubview:_textView];
     [self.view addSubview:_toolbar];
 

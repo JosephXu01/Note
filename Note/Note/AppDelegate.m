@@ -11,6 +11,7 @@
 #import "NSUserDefaultsHelper.h"
 #import "NoteUtil.h"
 #import "EditViewController.h"
+#import "ReadingPasswordInputViewController.h"
 
 @interface AppDelegate () <UISplitViewControllerDelegate>
 @property (strong,nonatomic) UserService *userService;
@@ -25,10 +26,14 @@
 
     NSString *account = [NSUserDefaultsHelper getUserAccount];
     NSString *password = [NSUserDefaultsHelper getLoginPassword];
+    NSString *readingPassword = [NSUserDefaultsHelper getReadingPassword];
 
     NSLog(@"account:%@",account);
 
-    if ([self.userService getUserByAccount:account andPassword:password]) {
+    if (readingPassword) {
+        self.window.rootViewController = [NoteUtil jumpToViewWithStoryboardID:MAIN andViewID:READING_PASSWORD_INPUT_VIEW_CONTROLLER];
+
+    }else if ([self.userService getUserByAccount:account andPassword:password]) {
         self.window.rootViewController = [NoteUtil jumpToView:MAIN];
 
         UISplitViewController *splitViewController = (UISplitViewController *)self.window.rootViewController;

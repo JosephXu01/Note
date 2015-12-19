@@ -316,6 +316,113 @@
             </objects>
             <point key="canvasLocation" x="-1408" y="116"/>
         </scene>
+        <!--Reading Password Input View Controller-->
+        <scene sceneID="Qul-fc-WNM">
+            <objects>
+                <viewController storyboardIdentifier="ReadingPassword" id="zJo-lh-wi3" customClass="ReadingPasswordInputViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="OtY-WH-8qy"/>
+                        <viewControllerLayoutGuide type="bottom" id="YlI-qi-rvK"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="6Zf-DE-tM1">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZTA-IV-GSX">
+                                <rect key="frame" x="207" y="55" width="186" height="30"/>
+                                <subviews>
+                                    <textField opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bQ1-zk-e9b">
+                                        <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="30" id="znT-sM-0bV"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="numberPad" secureTextEntry="YES"/>
+                                    </textField>
+                                    <textField opaque="NO" clipsSubviews="YES" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="NIE-5i-4l1">
+                                        <rect key="frame" x="52" y="0.0" width="30" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="30" id="3f7-8b-9pN"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="numberPad" secureTextEntry="YES"/>
+                                    </textField>
+                                    <textField opaque="NO" clipsSubviews="YES" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cF5-Wj-arz">
+                                        <rect key="frame" x="104" y="0.0" width="30" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="30" id="i9U-n6-eku"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="numberPad" secureTextEntry="YES"/>
+                                    </textField>
+                                    <textField opaque="NO" clipsSubviews="YES" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1fW-yp-60Q">
+                                        <rect key="frame" x="156" y="0.0" width="30" height="30"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="numberPad" secureTextEntry="YES"/>
+                                    </textField>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="1fW-yp-60Q" firstAttribute="baseline" secondItem="cF5-Wj-arz" secondAttribute="baseline" id="49t-3w-X67"/>
+                                    <constraint firstItem="cF5-Wj-arz" firstAttribute="leading" secondItem="NIE-5i-4l1" secondAttribute="trailing" constant="22" id="Cd2-zs-O6g"/>
+                                    <constraint firstItem="NIE-5i-4l1" firstAttribute="baseline" secondItem="cF5-Wj-arz" secondAttribute="baseline" id="CmQ-bZ-8sX"/>
+                                    <constraint firstAttribute="width" constant="186" id="G5I-zQ-Dhs"/>
+                                    <constraint firstItem="bQ1-zk-e9b" firstAttribute="baseline" secondItem="NIE-5i-4l1" secondAttribute="baseline" id="Han-qf-faL"/>
+                                    <constraint firstItem="bQ1-zk-e9b" firstAttribute="leading" secondItem="ZTA-IV-GSX" secondAttribute="leading" id="KfE-Ux-BKG"/>
+                                    <constraint firstItem="NIE-5i-4l1" firstAttribute="top" secondItem="ZTA-IV-GSX" secondAttribute="top" id="ZhP-0y-K5X"/>
+                                    <constraint firstAttribute="trailing" secondItem="1fW-yp-60Q" secondAttribute="trailing" id="cjD-6U-6V5"/>
+                                    <constraint firstAttribute="height" constant="30" id="ePR-vP-gKQ"/>
+                                    <constraint firstItem="1fW-yp-60Q" firstAttribute="leading" secondItem="cF5-Wj-arz" secondAttribute="trailing" constant="22" id="g7N-rG-6z8"/>
+                                    <constraint firstItem="NIE-5i-4l1" firstAttribute="leading" secondItem="bQ1-zk-e9b" secondAttribute="trailing" constant="22" id="yqH-UY-VmW"/>
+                                </constraints>
+                            </view>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="SRx-W1-h4b">
+                                <rect key="frame" x="287" y="285" width="26" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="97" id="wMf-jv-tZJ"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="wMf-jv-tZJ"/>
+                                    </mask>
+                                </variation>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="wrong password !" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZS4-By-b29">
+                                <rect key="frame" x="234" y="93" width="132" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="132" id="eTw-EB-rTm"/>
+                                    <constraint firstAttribute="height" constant="21" id="erv-we-3Nl"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="ZS4-By-b29" firstAttribute="centerX" secondItem="ZTA-IV-GSX" secondAttribute="centerX" id="DuH-U2-3Hh"/>
+                            <constraint firstAttribute="centerX" secondItem="ZTA-IV-GSX" secondAttribute="centerX" id="H3m-XH-CiB"/>
+                            <constraint firstItem="SRx-W1-h4b" firstAttribute="centerX" secondItem="ZTA-IV-GSX" secondAttribute="centerX" id="HCz-PD-YxL"/>
+                            <constraint firstItem="SRx-W1-h4b" firstAttribute="centerY" secondItem="6Zf-DE-tM1" secondAttribute="centerY" id="PqX-1L-Yyt"/>
+                            <constraint firstItem="ZTA-IV-GSX" firstAttribute="top" secondItem="OtY-WH-8qy" secondAttribute="bottom" constant="35" id="Vyi-vF-I2W"/>
+                            <constraint firstItem="ZS4-By-b29" firstAttribute="top" secondItem="ZTA-IV-GSX" secondAttribute="bottom" constant="8" symbolic="YES" id="vYB-ba-dLy"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="hiddenTextField" destination="SRx-W1-h4b" id="Wb4-09-tvZ"/>
+                        <outlet property="password1" destination="bQ1-zk-e9b" id="p9j-2h-uTw"/>
+                        <outlet property="password2" destination="NIE-5i-4l1" id="aum-YR-ZTm"/>
+                        <outlet property="password3" destination="cF5-Wj-arz" id="MoV-lH-2w1"/>
+                        <outlet property="password4" destination="1fW-yp-60Q" id="2Ag-Gt-eA0"/>
+                        <outlet property="wrongPasswordLabel" destination="ZS4-By-b29" id="lMH-Mg-snk"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2DN-Hu-jTd" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1577" y="-338"/>
+        </scene>
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="Ep9-mE-DX7"/>
