@@ -114,6 +114,11 @@
     [alertController addAction:cancelAction];
     [alertController addAction:yesAction];
 
+//reason: 'Your application has presented a UIAlertController (<UIAlertController: 0x7facb843b4f0>) of style UIAlertControllerStyleActionSheet. The modalPresentationStyle of a UIAlertController with this style is UIModalPresentationPopover. You must provide location information for this popover through the alert controller's popoverPresentationController. You must provide either a sourceView and sourceRect or a barButtonItem.  If this information is not known when you present the alert controller, you may provide it in the UIPopoverPresentationControllerDelegate method -prepareForPopoverPresentation.'
+
+    alertController.popoverPresentationController.sourceView = self.view;
+    alertController.popoverPresentationController.sourceRect = CGRectMake(self.view.center.x, self.view.center.y, 1.0, 1.0);
+
     [self presentViewController:alertController animated:YES completion:nil];
 }
 
@@ -142,6 +147,10 @@
     [alertController addAction:cancelAction];
     [alertController addAction:cameraAction];
     [alertController addAction:pictureAction];
+
+    //to support ipad
+    alertController.popoverPresentationController.sourceView = self.view;
+    alertController.popoverPresentationController.sourceRect = CGRectMake(self.faceView.frame.origin.x + self.faceView.frame.size.width, self.faceView.frame.origin.y + self.faceView.frame.size.height, 1.0, 1.0);
 
     [self presentViewController:alertController animated:YES completion:nil];
 }

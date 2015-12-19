@@ -13,8 +13,9 @@
 #import "NoteUtil.h"
 #import "NSUserDefaultsHelper.h"
 #import "RegisterViewController.h"
+#import "EditViewController.h"
 
-@interface LoginViewController ()
+@interface LoginViewController () <UISplitViewControllerDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *accountText;
 @property (weak, nonatomic) IBOutlet UITextField *passwordText;
 
@@ -48,12 +49,24 @@
 
         [NSUserDefaultsHelper setAccount:user.loginAccount andPassword:user.loginPassword andName:user.nickName andFaceImage:user.faceImage];
 
-        [self presentViewController:[NoteUtil jumpToView:MAIN] animated:YES completion:^{
+        [self presentViewController:[NoteUtil jumpToView:MAIN] animated:YES completion:nil];
 
-        }];
+        UISplitViewController *splitViewController = (UISplitViewController *)self.presentedViewController;
+        UINavigationController *navigationController = [splitViewController.viewControllers lastObject];
+        navigationController.topViewController.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem;
+        splitViewController.delegate = self;
     }
+}
 
+#pragma mark - Split view
 
+- (BOOL)splitViewController:(UISplitViewController *)splitViewController collapseSecondaryViewController:(UIViewController *)secondaryViewController ontoPrimaryViewController:(UIViewController *)primaryViewController {
+    if ([secondaryViewController isKindOfClass:[UINavigationController class]] && [[(UINavigationController *)secondaryViewController topViewController] isKindOfClass:[EditViewController class]] && ([(EditViewController *)[(UINavigationController *)secondaryViewController topViewController] currentNote] == nil)) {
+        // Return YES to indicate that we have handled the collapse by doing nothing; the secondary controller will be discarded.
+        return YES;
+    } else {
+        return NO;
+    }
 }
 
 - (IBAction)createNewAccount:(UIButton *)sender {
@@ -61,7 +74,6 @@
     RegisterViewController *registerViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"Register"];
     [self presentViewController:registerViewController animated:YES completion:nil];
 }
-
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField{
     [textField resignFirstResponder];

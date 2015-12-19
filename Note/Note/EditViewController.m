@@ -28,39 +28,48 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 
+    [self configureView];
 
-    self.titleText.text = self.currentNote.title;
-
-        //unarchive
-    if (_currentNote.body) {
-        self.attributedBody = [NSKeyedUnarchiver unarchiveObjectWithData:_currentNote.body];
-    }
-
-    self.bodyText.attributedText = _attributedBody.body;
-
-//      self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStylePlain target:self action:@selector(backToNoteList:)];
+    [self.navigationController.navigationBar setBarTintColor:[UIColor greenColor]];
+    [self.navigationController.navigationBar setTintColor:[UIColor blackColor]];
 
     // fix the problem that textview doesn't start from the first line , it's caused by navigationBar since IOS7
     if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0) {
         self.automaticallyAdjustsScrollViewInsets = NO;
     }
 }
+
+-(void)configureView{
+    if (self.currentNote) {
+        self.titleText.text = self.currentNote.title;
+
+        //unarchive
+        if (_currentNote.body) {
+            self.attributedBody = [NSKeyedUnarchiver unarchiveObjectWithData:_currentNote.body];
+        }
+
+        self.bodyText.attributedText = _attributedBody.body;
+    }
+}
+
 - (IBAction)saveNote:(UIBarButtonItem *)sender {
-    AttributedBody *attributedBody = [[AttributedBody alloc] init];
-    attributedBody.body =  self.bodyText.attributedText;
+    if (_currentNote) {
+        AttributedBody *attributedBody = [[AttributedBody alloc] init];
+        attributedBody.body =  self.bodyText.attributedText;
 
-    //archive
-    NSData *bodyData = [NSKeyedArchiver archivedDataWithRootObject:attributedBody];
+        //archive
+        NSData *bodyData = [NSKeyedArchiver archivedDataWithRootObject:attributedBody];
 
-    _currentNote.title = self.titleText.text;
-    _currentNote.body = bodyData;
-    _currentNote.lastModifiedDate = [NSDate date];
+        _currentNote.title = self.titleText.text;
+        _currentNote.body = bodyData;
+        _currentNote.lastModifiedDate = [NSDate date];
 
-    [self.noteService updateNote];
+        [self.noteService updateNote];
 
-    [self.view endEditing:YES];
+        [self.view endEditing:YES];
 
-    [[NSNotificationCenter defaultCenter] postNotificationName:NOTE_UPDATED_NOTIFICATION object:self userInfo:@{UPDATEDNOTE : _currentNote}];
+        [[NSNotificationCenter defaultCenter] postNotificationName:NOTE_UPDATED_NOTIFICATION object:self userInfo:@{UPDATEDNOTE : _currentNote}];
+    }
 }
 
 //-(void)backToNoteList:(UIBarButtonItem *)sender {
@@ -97,6 +106,14 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+-(void)setCurrentNote:(Note *)currentNote{
+    if (_currentNote != currentNote) {
+        _currentNote = currentNote;
+
+        [self configureView];
+    }
 }
 
 -(NoteService *)noteService{
