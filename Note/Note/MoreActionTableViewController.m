@@ -57,7 +57,9 @@
         [[NSNotificationCenter defaultCenter] postNotificationName:NOTE_DELETED_FROM_EDIT_PAGE object:self userInfo:@{NOTE_TO_DELETE : self.currentNote}];
         
         [self.editViewController.popoverController dismissPopoverAnimated:YES];
-        [self.editViewController.navigationController popViewControllerAnimated:YES];
+
+#warning //TODO: below code is not working in splitView on iphone ,
+        //[[self.editViewController.navigationController popViewControllerAnimated:YES];
     }
 }
 

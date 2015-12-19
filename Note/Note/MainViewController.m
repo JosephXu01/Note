@@ -12,6 +12,7 @@
 #import "EditViewController.h"
 #import "MoreActionTableViewController.h"
 #import "AttributedBody.h"
+#import "SettingViewController.h"
 
 #define ADD @"add"
 #define EDIT @"edit"
@@ -24,16 +25,32 @@
 @property (strong,nonatomic) NoteService *noteService;
 
 @property (strong,nonatomic) UIRefreshControl *refreshControl;
+@property (strong,nonatomic) EditViewController *editViewController;
 
 @end
 
 @implementation MainViewController
+
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+        self.preferredContentSize = CGSizeMake(320.0, 600.0);
+    }
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 
     self.noteArray = [[self loadNotes] mutableCopy];
+
+    //do this on ipad , if not ,the edit page will be blank, will cause error if click on "Done" button
+    //of course we can handle this on button click event , but i think it's better to show something for user
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+        self.editViewController = (EditViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
+
+        self.editViewController.currentNote = [self.noteArray firstObject];
+    }
 
     self.noteListTableView.dataSource = self;
     self.noteListTableView.delegate = self;
@@ -47,7 +64,6 @@
     if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0) {
         self.automaticallyAdjustsScrollViewInsets = NO;
     }
-
 }
 
 -(NSArray *)loadNotes{
@@ -150,18 +166,14 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (self.searchController.isActive) {
-        self.searchController.searchBar.text = nil;
-        [self dismissViewControllerAnimated:self.searchController completion:NULL];
-    }
 
     [self performSegueWithIdentifier:EDIT sender:[self.noteListTableView cellForRowAtIndexPath:indexPath]];
 }
 
 #pragma mark - prepareforsegue
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-    if ([segue.destinationViewController isKindOfClass:[EditViewController class]]) {
-        EditViewController *editViewController = segue.destinationViewController;
+    if ([[segue.destinationViewController topViewController] isKindOfClass:[EditViewController class]]) {
+        EditViewController *editViewController = (EditViewController *)[segue.destinationViewController topViewController];
 
         if ([segue.identifier isEqualToString:ADD]) {
             Note *newNote = [_noteService newNote];
@@ -175,12 +187,28 @@
             NSIndexPath *indexPath = [self.noteListTableView indexPathForCell:(UITableViewCell *)sender];
             Note *selectedNote = self.noteArray[indexPath.row];
             editViewController.currentNote = selectedNote;
+
+            //select note in search page
+            if (self.searchController.isActive) {
+                editViewController.currentNote = self.searchResultsArray[indexPath.row];
+
+                self.searchController.searchBar.text = nil;
+                [self.searchController dismissViewControllerAnimated:YES completion:NULL];
+            }
         }
+
+        editViewController.navigationItem.leftBarButtonItem = self.splitViewController.displayModeButtonItem;
+        editViewController.navigationItem.leftItemsSupplementBackButton = YES;
 
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(noteUpdated:) name:NOTE_UPDATED_NOTIFICATION object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deleteNoteFromEditPage:) name:NOTE_DELETED_FROM_EDIT_PAGE object:nil];
     }
 
+}
+- (IBAction)settings:(UIBarButtonItem *)sender {
+    SettingViewController *settings = [self.storyboard instantiateViewControllerWithIdentifier:@"settings"];
+
+    [self.navigationController pushViewController:settings animated:YES];
 }
 
 #pragma mark - notification
@@ -216,6 +244,11 @@
         [self.noteListTableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForItem:index inSection:0]] withRowAnimation:UITableViewRowAnimationLeft];
 
         [[NSNotificationCenter defaultCenter] removeObserver:self name:NOTE_DELETED_FROM_EDIT_PAGE object:notification.object];
+    }
+
+    //on ipad, switch to the next one
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+        [self performSegueWithIdentifier:EDIT sender:[self.noteListTableView cellForRowAtIndexPath:[NSIndexPath indexPathForItem:index inSection:0]]];
     }
 
 }
