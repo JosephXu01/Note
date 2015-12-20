@@ -10,6 +10,7 @@
 #import "NSUserDefaultsHelper.h"
 #import <LocalAuthentication/LocalAuthentication.h>
 #import "NoteUtil.h"
+#import "ReadingPasswordInputViewController.h"
 @interface ReadingPasswordViewController ()
 
 @property (strong,nonatomic) UISwitch *touchIDSwitch;
@@ -80,7 +81,10 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 1 && self.passwordSwitch.isOn) {
-        //TODO.
+        ReadingPasswordInputViewController *passwordInputViewController = [self.parentViewController.storyboard instantiateViewControllerWithIdentifier:READING_PASSWORD_INPUT_VIEW_CONTROLLER];
+        passwordInputViewController.setPassword = YES;
+
+        [self.navigationController pushViewController:passwordInputViewController animated:YES];
     }
 }
 
@@ -131,11 +135,15 @@
 
 -(void)passwordSwitchAction:(UISwitch *)sender{
     if (sender.isOn) {
-        //TODO. create password
-
         [self changePasswordCell].accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 
+        //self.parentViewController is a navigationController,
+        //self.storyboard is null, cause it's not from storyboard
+        //self.presentingViewController is null
+        ReadingPasswordInputViewController *passwordInputViewController = [self.parentViewController.storyboard instantiateViewControllerWithIdentifier:READING_PASSWORD_INPUT_VIEW_CONTROLLER];
+        passwordInputViewController.setPassword = YES;
 
+        [self.navigationController pushViewController:passwordInputViewController animated:YES];
 
     }else{
         [NSUserDefaultsHelper removeReadingPassword];

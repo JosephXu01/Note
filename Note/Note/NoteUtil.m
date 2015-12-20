@@ -23,9 +23,13 @@
     return [self okButtonAlertControllerWithTitle:@"Warning" withMessage:messages];
 }
 
-+(id)jumpToView:(NSString *)viewStr{
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:viewStr bundle:[NSBundle mainBundle]];
-    id view = [storyboard instantiateViewControllerWithIdentifier:viewStr];
++(id)jumpToView:(NSString *)viewId{
+    return [self jumpToViewWithStoryboardID:viewId andViewID:viewId];
+}
+
++(id)jumpToViewWithStoryboardID:(NSString *)storyboardId andViewID:(NSString *)viewId{
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:storyboardId bundle:[NSBundle mainBundle]];
+    id view = [storyboard instantiateViewControllerWithIdentifier:viewId];
 
     return view;
 }

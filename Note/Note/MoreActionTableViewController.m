@@ -60,6 +60,12 @@
 
 #warning //TODO: below code is not working in splitView on iphone ,
         //[[self.editViewController.navigationController popViewControllerAnimated:YES];
+
+        NSLog(@"......%@",self.editViewController.navigationController);
+
+        UINavigationController *navi = (UINavigationController *)self.editViewController.parentViewController;
+
+        [navi popViewControllerAnimated:YES];
     }
 }
 

@@ -18,6 +18,7 @@
 +(UIAlertController *)okButtonAlertControllerWithTitle:(NSString *)title withMessage:(NSString *)messages;
 +(UIAlertController *)okButtonAlertControllerWithWarningTitleAndMessage:(NSString *)messages;
 
-+(id)jumpToView:(NSString *)view;
++(id)jumpToView:(NSString *)viewId;
++(id)jumpToViewWithStoryboardID:(NSString *)storyboardId andViewID:(NSString *)viewId;
 
 @end

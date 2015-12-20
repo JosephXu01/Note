@@ -5,14 +5,15 @@
 //  Created by Shallong on 15/12/12.
 //  Copyright (c) 2015年 Shallong. All rights reserved.
 //
-
+#import <MessageUI/MessageUI.h>
 #import "EditViewController.h"
 #import "NoteService.h"
 #import "MoreActionTableViewController.h"
 #import "ReadingModeViewController.h"
 #import "AttributedBody.h"
+#import "NoteUtil.h"
 
-@interface EditViewController ()
+@interface EditViewController () <MFMailComposeViewControllerDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *titleText;
 @property (weak, nonatomic) IBOutlet UITextView *bodyText;
 
@@ -80,6 +81,26 @@
 -(void)viewWillAppear:(BOOL)animated{
 
 }
+
+#pragma mark - mail
+- (IBAction)sendEmail:(UIBarButtonItem *)sender {
+
+    MFMailComposeViewController *mailPicker = [[MFMailComposeViewController alloc] init];
+    if (![MFMailComposeViewController canSendMail]) {
+        UIAlertController *alertController =  [NoteUtil okButtonAlertControllerWithWarningTitleAndMessage:@"Mail account wasn't set!"];
+
+        [self presentViewController:alertController animated:YES completion:nil];
+    }
+    else{
+        mailPicker.mailComposeDelegate = self;
+        [mailPicker setSubject:self.currentNote.title];
+        [mailPicker setMessageBody:[self.attributedBody.body string] isHTML:YES];
+
+        [self presentViewController:mailPicker animated:YES completion:nil];
+    }
+}
+
+#pragma mark - reading mode
 - (IBAction)readingModeClicked:(UIBarButtonItem *)sender {
     ReadingModeViewController *readingModeViewController = [[ReadingModeViewController alloc] init];
 
@@ -89,6 +110,7 @@
     
 }
 
+#pragma mark - more
 - (IBAction)moreButtonClicked:(UIBarButtonItem *)sender {
     MoreActionTableViewController *moreActionViewController = [[MoreActionTableViewController alloc] init];
     moreActionViewController.editViewController = self;
@@ -102,12 +124,37 @@
     [self.popoverController presentPopoverFromBarButtonItem:sender permittedArrowDirections:UIPopoverArrowDirectionDown animated:YES];
 }
 
+#pragma mark - mfmail delegate
+-(void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error{
+    [self dismissViewControllerAnimated:YES completion:nil];
+
+    switch (result) {
+        case MFMailComposeResultCancelled:
+
+            break;
+        case MFMailComposeResultSaved:
+
+            break;
+        case MFMailComposeResultFailed:
+
+            break;
+        case MFMailComposeResultSent:
+
+            break;
+
+        default:
+            break;
+    }
+
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark - get set
 -(void)setCurrentNote:(Note *)currentNote{
     if (_currentNote != currentNote) {
         _currentNote = currentNote;
