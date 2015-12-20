@@ -71,6 +71,7 @@
 		FEF08BE41C23A7F2000F9DCC /* BackoundColorTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FEF08BE31C23A7F2000F9DCC /* BackoundColorTableViewController.m */; };
 		FEF08BE71C23B7E6000F9DCC /* AttributedBody.m in Sources */ = {isa = PBXBuildFile; fileRef = FEF08BE61C23B7E6000F9DCC /* AttributedBody.m */; };
 		FEF08C5A1C258826000F9DCC /* ReadingPasswordInputViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FEF08C591C258826000F9DCC /* ReadingPasswordInputViewController.m */; };
+		FEF08C5C1C26447F000F9DCC /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FEF08C5B1C26447F000F9DCC /* MessageUI.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -184,6 +185,7 @@
 		FEF08BE61C23B7E6000F9DCC /* AttributedBody.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AttributedBody.m; sourceTree = "<group>"; };
 		FEF08C581C258826000F9DCC /* ReadingPasswordInputViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReadingPasswordInputViewController.h; sourceTree = "<group>"; };
 		FEF08C591C258826000F9DCC /* ReadingPasswordInputViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReadingPasswordInputViewController.m; sourceTree = "<group>"; };
+		FEF08C5B1C26447F000F9DCC /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -191,6 +193,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FEF08C5C1C26447F000F9DCC /* MessageUI.framework in Frameworks */,
 				FEF08B0A1C22B78B000F9DCC /* CoreGraphics.framework in Frameworks */,
 				FEF08B091C22B784000F9DCC /* QuartzCore.framework in Frameworks */,
 				FEF08B081C22B77C000F9DCC /* Foundation.framework in Frameworks */,
@@ -211,6 +214,7 @@
 		FE96375D1C1D0F8100A98564 = {
 			isa = PBXGroup;
 			children = (
+				FEF08C5B1C26447F000F9DCC /* MessageUI.framework */,
 				FEF08AD81C22AD8C000F9DCC /* Foundation.framework */,
 				FEF08AD61C22AD50000F9DCC /* QuartzCore.framework */,
 				FEF08AD41C22AD2C000F9DCC /* CoreGraphics.framework */,
