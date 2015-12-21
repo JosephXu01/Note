@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#define SETTINGS_STORYBOARD_ID @"settings"
 
 @interface SettingViewController : UIViewController <UIImagePickerControllerDelegate,UINavigationControllerDelegate,UITableViewDataSource,UITableViewDelegate>
 

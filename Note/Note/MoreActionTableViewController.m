@@ -22,7 +22,6 @@
     self.actionsArray = @[DELETE];
 
     self.preferredContentSize = CGSizeMake(100, 44 * self.actionsArray.count - 1);
-
 }
 
 - (void)didReceiveMemoryWarning {
@@ -54,18 +53,12 @@
     NSString *label = selectedCell.textLabel.text;
 
     if([label isEqualToString:DELETE]) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:NOTE_DELETED_FROM_EDIT_PAGE object:self userInfo:@{NOTE_TO_DELETE : self.currentNote}];
+        [[NSNotificationCenter defaultCenter] postNotificationName:NOTE_DELETED_FROM_EDIT_PAGE object:self];
         
         [self.editViewController.popoverController dismissPopoverAnimated:YES];
 
-#warning //TODO: below code is not working in splitView on iphone ,
-        //[[self.editViewController.navigationController popViewControllerAnimated:YES];
-
-        NSLog(@"......%@",self.editViewController.navigationController);
-
-        UINavigationController *navi = (UINavigationController *)self.editViewController.parentViewController;
-
-        [navi popViewControllerAnimated:YES];
+        //with splitViewController, it has to be like this...
+        [self.editViewController.navigationController.navigationController popToRootViewControllerAnimated:YES];
     }
 }
 
