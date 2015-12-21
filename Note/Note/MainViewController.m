@@ -218,8 +218,6 @@
 #pragma mark - notification
 //when note updated , move it to the first row
 -(void)noteUpdated:(NSNotification *)notification{
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:NOTE_UPDATED_NOTIFICATION object:notification.object];
-
     NSUInteger index = self.currentIndex;
     Note *updatedNote = self.noteArray[index];
 
@@ -236,8 +234,6 @@
 
 //note delet from edit page
 -(void)deleteNoteFromEditPage:(NSNotification *)notification{
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:NOTE_DELETED_FROM_EDIT_PAGE object:notification.object];
-
     NSUInteger index = self.currentIndex;
     Note *noteToDelete = self.noteArray[index];
 
