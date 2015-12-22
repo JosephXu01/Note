@@ -56,6 +56,8 @@
 }
 
 - (IBAction)userRegister:(UIButton *)sender {
+    [self.view endEditing:YES];
+
     RegisterInfo *registerInfo = [[RegisterInfo alloc] init];
     registerInfo.nickName = self.nickNameText.text;
     registerInfo.account = self.accountText.text;

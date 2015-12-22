@@ -34,6 +34,8 @@
     [self.navigationController.navigationBar setBarTintColor:[UIColor greenColor]];
     [self.navigationController.navigationBar setTintColor:[UIColor blackColor]];
 
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientationDidChange) name:UIDeviceOrientationDidChangeNotification object:nil];
+
     // fix the problem that textview doesn't start from the first line , it's caused by navigationBar since IOS7
     if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0) {
         self.automaticallyAdjustsScrollViewInsets = NO;
@@ -69,17 +71,8 @@
 
         [self.view endEditing:YES];
 
-        [[NSNotificationCenter defaultCenter] postNotificationName:NOTE_UPDATED_NOTIFICATION object:self userInfo:@{UPDATEDNOTE : _currentNote}];
+        [[NSNotificationCenter defaultCenter] postNotificationName:NOTE_UPDATED_NOTIFICATION object:self];
     }
-}
-
-//-(void)backToNoteList:(UIBarButtonItem *)sender {
-//
-//    [self.navigationController popViewControllerAnimated:YES];
-//}
-
--(void)viewWillAppear:(BOOL)animated{
-
 }
 
 #pragma mark - mail
@@ -146,6 +139,14 @@
             break;
     }
 
+}
+
+-(void)orientationDidChange{
+    if ([[UIDevice currentDevice] orientation] == UIDeviceOrientationPortrait) {
+        if (self.popoverController) {
+            [self.popoverController dismissPopoverAnimated:YES];
+        }
+    }
 }
 
 

@@ -80,10 +80,17 @@
         navigationController.topViewController.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem;
         splitViewController.delegate = self;
     }else{
-        self.hiddenTextField.text = @"";
-        [self.wrongPasswordLabel setHidden:NO];
-        //[self setStar:0];
+        //wait for stars were all set...
+        NSTimer *delayTimer = [NSTimer timerWithTimeInterval:0.3 target:self selector:@selector(  clearTextFields) userInfo:nil repeats:NO];
+
+        [[NSRunLoop currentRunLoop] addTimer:delayTimer forMode:NSDefaultRunLoopMode];
     }
+}
+
+-(void)clearTextFields{
+    self.hiddenTextField.text = @"";
+    [self.wrongPasswordLabel setHidden:NO];
+    [self setStar:0];
 }
 
 #pragma mark - Split view

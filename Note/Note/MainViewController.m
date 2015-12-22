@@ -27,6 +27,7 @@
 @property (strong,nonatomic) UIRefreshControl *refreshControl;
 @property (strong,nonatomic) EditViewController *editViewController;
 
+@property (assign) NSUInteger currentIndex;
 @end
 
 @implementation MainViewController
@@ -64,6 +65,9 @@
     if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0) {
         self.automaticallyAdjustsScrollViewInsets = NO;
     }
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(noteUpdated:) name:NOTE_UPDATED_NOTIFICATION object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deleteNoteFromEditPage:) name:NOTE_DELETED_FROM_EDIT_PAGE object:nil];
 }
 
 -(NSArray *)loadNotes{
@@ -182,31 +186,31 @@
             //insert new note to the fist of the array
             [self.noteArray insertObject:newNote atIndex:0];
             [self.noteListTableView insertRowsAtIndexPaths:@[[self firstRow]] withRowAnimation:NO];
-
+            self.currentIndex = 0;
         }else if([segue.identifier isEqualToString:EDIT]){
             NSIndexPath *indexPath = [self.noteListTableView indexPathForCell:(UITableViewCell *)sender];
             Note *selectedNote = self.noteArray[indexPath.row];
             editViewController.currentNote = selectedNote;
+            self.currentIndex = indexPath.row;
 
             //select note in search page
             if (self.searchController.isActive) {
-                editViewController.currentNote = self.searchResultsArray[indexPath.row];
+                Note *searchNote = self.searchResultsArray[indexPath.row];
+                editViewController.currentNote = searchNote;
+                self.currentIndex = [self.noteArray indexOfObject:searchNote];
 
                 self.searchController.searchBar.text = nil;
                 [self.searchController dismissViewControllerAnimated:YES completion:NULL];
             }
         }
 
+        //for split view
         editViewController.navigationItem.leftBarButtonItem = self.splitViewController.displayModeButtonItem;
         editViewController.navigationItem.leftItemsSupplementBackButton = YES;
-
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(noteUpdated:) name:NOTE_UPDATED_NOTIFICATION object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deleteNoteFromEditPage:) name:NOTE_DELETED_FROM_EDIT_PAGE object:nil];
     }
-
 }
 - (IBAction)settings:(UIBarButtonItem *)sender {
-    SettingViewController *settings = [self.storyboard instantiateViewControllerWithIdentifier:@"settings"];
+    SettingViewController *settings = [self.storyboard instantiateViewControllerWithIdentifier:SETTINGS_STORYBOARD_ID];
 
     [self.navigationController pushViewController:settings animated:YES];
 }
@@ -214,9 +218,8 @@
 #pragma mark - notification
 //when note updated , move it to the first row
 -(void)noteUpdated:(NSNotification *)notification{
-    Note *updatedNote = [notification.userInfo valueForKey:UPDATEDNOTE];
-
-    NSUInteger index = [self.noteArray indexOfObject:updatedNote];
+    NSUInteger index = self.currentIndex;
+    Note *updatedNote = self.noteArray[index];
 
     if (!index == 0) {
         [self.noteArray removeObjectAtIndex:index];
@@ -227,30 +230,21 @@
     }else{
         [self.noteListTableView reloadRowsAtIndexPaths:@[[self firstRow]] withRowAnimation:NO];
     }
-
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:NOTE_UPDATED_NOTIFICATION object:notification.object];
 }
 
 //note delet from edit page
 -(void)deleteNoteFromEditPage:(NSNotification *)notification{
-    Note *noteToDelete = [notification.userInfo valueForKey:NOTE_TO_DELETE];
-    NSUInteger index = [self.noteArray indexOfObject:noteToDelete];
+    NSUInteger index = self.currentIndex;
+    Note *noteToDelete = self.noteArray[index];
 
-    //TODO:bug here, don't know why yet, this method will be executed serverl times,
-    //the first time ,note will be deleted, then the index will be -1,
-    if (index != NSNotFound) {
-        [_noteService deleteNote:noteToDelete];
-        [self.noteArray removeObject:noteToDelete];
-        [self.noteListTableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForItem:index inSection:0]] withRowAnimation:UITableViewRowAnimationLeft];
-
-        [[NSNotificationCenter defaultCenter] removeObserver:self name:NOTE_DELETED_FROM_EDIT_PAGE object:notification.object];
-    }
+    [_noteService deleteNote:noteToDelete];
+    [self.noteArray removeObject:noteToDelete];
+    [self.noteListTableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForItem:index inSection:0]] withRowAnimation:UITableViewRowAnimationLeft];
 
     //on ipad, switch to the next one
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
         [self performSegueWithIdentifier:EDIT sender:[self.noteListTableView cellForRowAtIndexPath:[NSIndexPath indexPathForItem:index inSection:0]]];
     }
-
 }
 
 -(NSIndexPath *)firstRow{

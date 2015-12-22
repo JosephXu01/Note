@@ -18,7 +18,6 @@
 @property (strong,nonatomic) UIToolbar *toolbar;
 @property (nonatomic, assign) CGFloat textSize;
 
-
 @end
 
 @implementation ReadingModeViewController
@@ -41,22 +40,16 @@
 
 }
 
-
-//TODO:auto layout
 -(void)initView{
     _textView = [[UITextView alloc] init];
     _toolbar = [[UIToolbar alloc] init];
 
-    CGFloat screenWidth = [[UIScreen mainScreen] bounds].size.width;
-    CGFloat screenHeight = [[UIScreen mainScreen] bounds].size.height;
-
-     _textView.frame = CGRectMake(0, STATUS_BAR_HEIGHT, screenWidth, screenHeight - STATUS_BAR_HEIGHT);
-
-    _toolbar.frame = CGRectMake(0, screenHeight - TOOLBAR_HEIGHT , screenWidth,TOOLBAR_HEIGHT);
+    [self configureViews];
 
     [_toolbar setItems:[self getBarButtonItems]];
 
     _textView.editable = NO;
+
     [self.view addSubview:_textView];
     [self.view addSubview:_toolbar];
 
@@ -120,26 +113,18 @@
 
 
 -(void)viewWillLayoutSubviews{
+    self.view.backgroundColor = self.backgroundColor;
 
-    self.view.backgroundColor = [UIColor whiteColor];
+    [self configureViews];
+}
 
+-(void)configureViews{
     CGFloat screenWidth = [[UIScreen mainScreen] bounds].size.width;
     CGFloat screenHeight = [[UIScreen mainScreen] bounds].size.height;
 
-
-//    if ([[UIDevice currentDevice] orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice] orientation] == UIInterfaceOrientationLandscapeRight) {
-//
-//        NSLog(@"view frame.......%@",NSStringFromCGRect(self.view.frame));
-//
-//        NSLog(@"width,height....%f,%f",screenWidth,screenHeight);
-//    }
-
     _textView.frame = CGRectMake(0, STATUS_BAR_HEIGHT, screenWidth, screenHeight - STATUS_BAR_HEIGHT);
-    //_textView.frame = self.view.bounds;
 
     _toolbar.frame = CGRectMake(0, screenHeight - TOOLBAR_HEIGHT , screenWidth,TOOLBAR_HEIGHT);
-    
-
 }
 
 -(UIColor *)backgroundColor{
