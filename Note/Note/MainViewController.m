@@ -163,11 +163,6 @@
         [self.noteListTableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
     }
 }
--(void)viewWillAppear:(BOOL)animated{
-    //self.noteArray = [[self loadNotes] mutableCopy];
-
-//    [self.noteListTableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForItem:0 inSection:0]] withRowAnimation:NO];
-}
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 

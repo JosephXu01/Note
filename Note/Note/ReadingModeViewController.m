@@ -37,7 +37,6 @@
     if (_attributedString) {
         self.textView.attributedText = _attributedString;
     }
-
 }
 
 -(void)initView{
@@ -158,7 +157,9 @@
 }
 
 -(void)setTextSize:(CGFloat)size{
-    [self.attributedString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:size] range:NSMakeRange(0, self.attributedString.length)];
+    [self.attributedString addAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:size],
+                                            NSForegroundColorAttributeName :textColor
+                                            } range:NSMakeRange(0, self.attributedString.length)];
 
     self.textView.attributedText = self.attributedString;
 
