@@ -15,6 +15,8 @@
 #import "RegisterViewController.h"
 #import "EditViewController.h"
 
+#define REGISTER_VIEW_IDENTIFIER @"Register"
+
 @interface LoginViewController () <UISplitViewControllerDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *accountText;
 @property (weak, nonatomic) IBOutlet UITextField *passwordText;
@@ -72,7 +74,7 @@
 
 - (IBAction)createNewAccount:(UIButton *)sender {
     //init from storyboard
-    RegisterViewController *registerViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"Register"];
+    RegisterViewController *registerViewController = [self.storyboard instantiateViewControllerWithIdentifier:REGISTER_VIEW_IDENTIFIER];
     [self presentViewController:registerViewController animated:YES completion:nil];
 }
 
